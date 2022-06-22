@@ -33,12 +33,6 @@ model_x_var=meteo_model[:24][alg["x_var"]]
 #forecast machine learning  horizontal visibility meters
 vis_ml=(pd.DataFrame(alg["ml_model"].predict_proba(model_x_var))).iloc[:,0].map("{:.0%}".format).values
 
-df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
-df_all=df_all.rename(columns={"index": "Time UTC"})
-AgGrid(df_all)
-
-#show results prec visibility fog cloud cover
-
 st.write("###### **Horizontal visibility time T)**")
 
 
