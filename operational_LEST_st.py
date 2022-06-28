@@ -51,5 +51,5 @@ with open("reports/vis_LEST_d0.pdf", "rb") as pdf_file:
     PDFbyte = pdf_file.read()
 st.download_button(label="Download visibility report",
                     data=PDFbyte,
-                    file_name="LEVX_visibility_report.pdf",
+                    file_name="LEST_visibilityd0_report.pdf",
                     mime='application/octet-stream')
