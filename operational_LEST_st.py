@@ -45,3 +45,11 @@ AgGrid(df_all)
 
 #download table forecast
 st.markdown(get_table_download_link(df_for0),unsafe_allow_html=True)
+
+#download report
+with open("reports/vis_LEST_d0.pdf", "rb") as pdf_file:
+    PDFbyte = pdf_file.read()
+st.download_button(label="Download visibility report",
+                    data=PDFbyte,
+                    file_name="LEVX_visibility_report.pdf",
+                    mime='application/octet-stream')
