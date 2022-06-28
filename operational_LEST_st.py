@@ -43,3 +43,5 @@ df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
 df_all=df_all.rename(columns={"index": "Time UTC"})
 AgGrid(df_all)
 
+#download table forecast
+st.markdown(get_table_download_link(df_for0),unsafe_allow_html=True)
