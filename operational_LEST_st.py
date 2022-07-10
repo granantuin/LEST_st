@@ -31,7 +31,7 @@ metar_df=get_metar("LEST")
 model_x_var=meteo_model[:24][alg["x_var"]]
 
 #forecast machine learning  horizontal visibility meters
-vis_ml=(pd.DataFrame(alg["ml_model"].predict_proba(model_x_var))).iloc[:,0].map("{:.0%}".format).values
+vis_ml=(pd.DataFrame(alg["pipe"].predict_proba(model_x_var))).iloc[:,0].map("{:.0%}".format).values
 
 st.write("###### **Horizontal visibility time T)**")
 
