@@ -33,18 +33,30 @@ model_x_var=meteo_model[:24][alg["x_var"]]
 #forecast machine learning  horizontal visibility meters
 vis_ml=(pd.DataFrame(alg["pipe"].predict_proba(model_x_var))).iloc[:,0].map("{:.0%}".format).values
 
-st.write("###### **Horizontal visibility time T)**")
 
+#open new algorithm
+alg=pickle.load(open("algorithms/temp_LEST_d0.al","rb"))
 
+#select x _var
+model_x_var=meteo_model[:24][alg["x_var"]]
+
+#forecast machine learning  wind direction
+temp_ml= alg["pipe"].predict(model_x_var)
+
+#show results wind and temperature
+st.write("#### **Results visibility and temperature forecast  D0**")
+   
 df_for0=pd.DataFrame({"time UTC":meteo_model[:24].index,
-                     "visibility <=1000m (prob)":vis_ml,})
+                     "visibility <=1000m (prob)":vis_ml,
+                     "Temperature ml":temp_ml,
+                     "Temperature WRF":round(model_x_var["temp4"]-273.16,0)})
 
 df_all=pd.concat([df_for0.set_index("time UTC"),metar_df],axis=1).reset_index()
 df_all=df_all.rename(columns={"index": "Time UTC"})
 AgGrid(df_all)
 
-#download table forecast
-st.markdown(get_table_download_link(df_for0),unsafe_allow_html=True)
+
+
 
 #download report
 with open("reports/vis_LEST_d0.pdf", "rb") as pdf_file:
